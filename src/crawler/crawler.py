@@ -1,9 +1,9 @@
 # This line enables future annotations, allowing us to use types that are defined later in the code without needing string literals.
 from __future__ import annotations
 
-from db import init_db
-from crawler_helpers import fetch_datasets, persist_dataset_with_retry, start_run, finish_run
-from logger import AppLogger
+from src.db import init_db
+from src.crawler.crawler_helpers import fetch_datasets, persist_dataset_with_retry, start_run, finish_run
+from src.logger import AppLogger
 
 
 log = AppLogger("crawler")
