@@ -1,0 +1,18 @@
+[project]
+name = "data-gov-crawler"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "mikhaelmounay",email = "mikhaelmounay@gmail.com"}
+]
+requires-python = ">=3.11"
+dependencies = [
+    "requests (>=2.32.5,<3.0.0)",
+    "sqlalchemy (>=2.0.48,<3.0.0)",
+    "mysql-connector-python (>=9.6.0,<10.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
