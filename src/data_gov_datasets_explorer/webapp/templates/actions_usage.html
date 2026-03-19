@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+  <h3>Add Dataset Usage to a User Project</h3>
+  <p class="section-subtitle">Add usage records to an existing project and select datasets from the full catalog.</p>
+  <form method="post" action="{{ url_for('add_usage') }}" class="form-grid" id="usage-form">
+    <label>User Email
+      <input type="email" name="app_user_email" required>
+    </label>
+    <label>Project Name
+      <input type="text" name="project_name" required>
+    </label>
+    <div class="dataset-picker">
+      <label for="dataset-search">Dataset</label>
+      <input id="dataset-search" type="text" placeholder="Search dataset by name or id" autocomplete="off" required>
+      <input id="dataset-id" type="hidden" name="dataset_id">
+      <div id="dataset-results" class="search-results" hidden></div>
+      <p id="dataset-selection-hint" class="selection-hint">No dataset selected.</p>
+    </div>
+    <button type="submit">Add Usage</button>
+  </form>
+</section>
+
+<script>
+  (function () {
+    const form = document.getElementById("usage-form");
+    const searchInput = document.getElementById("dataset-search");
+    const hiddenDatasetId = document.getElementById("dataset-id");
+    const resultsBox = document.getElementById("dataset-results");
+    const selectionHint = document.getElementById("dataset-selection-hint");
+    const searchUrl = "{{ url_for('search_datasets_api') }}";
+
+    let activeQuery = "";
+
+    async function loadResults(query) {
+      activeQuery = query;
+      const response = await fetch(`${searchUrl}?q=${encodeURIComponent(query)}`);
+      if (!response.ok) {
+        return;
+      }
+
+      const rows = await response.json();
+      if (activeQuery !== query) {
+        return;
+      }
+
+      resultsBox.innerHTML = "";
+      if (!rows.length) {
+        const empty = document.createElement("div");
+        empty.className = "search-empty";
+        empty.textContent = "No matching datasets.";
+        resultsBox.appendChild(empty);
+      } else {
+        rows.forEach((row) => {
+          const option = document.createElement("button");
+          option.type = "button";
+          option.className = "search-option";
+          option.textContent = `${row.name} (${row.id})`;
+          option.addEventListener("click", () => {
+            hiddenDatasetId.value = row.id;
+            searchInput.value = row.name;
+            selectionHint.textContent = `Selected: ${row.name} (${row.id})`;
+            selectionHint.style.color = "";
+            resultsBox.hidden = true;
+          });
+          resultsBox.appendChild(option);
+        });
+      }
+
+      resultsBox.hidden = false;
+    }
+
+    let debounceTimer = null;
+    searchInput.addEventListener("input", () => {
+      hiddenDatasetId.value = "";
+      selectionHint.textContent = "No dataset selected.";
+      selectionHint.style.color = "";
+
+      const query = searchInput.value.trim();
+      window.clearTimeout(debounceTimer);
+      debounceTimer = window.setTimeout(() => {
+        loadResults(query);
+      }, 180);
+    });
+
+    searchInput.addEventListener("focus", () => {
+      loadResults(searchInput.value.trim());
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!resultsBox.contains(event.target) && event.target !== searchInput) {
+        resultsBox.hidden = true;
+      }
+    });
+
+    form.addEventListener("submit", (event) => {
+      if (!hiddenDatasetId.value) {
+        event.preventDefault();
+        selectionHint.textContent = "Select a dataset from the search results before submitting.";
+        selectionHint.style.color = "#b42318";
+        searchInput.focus();
+      }
+    });
+  })();
+</script>
+{% endblock %}

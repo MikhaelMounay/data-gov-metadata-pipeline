@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+  <h3>Top 10 Tags by Project Type</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Project Type</th><th>Rank</th><th>Tag</th><th>Usage Count</th></tr></thead>
+      <tbody>
+        {% for row in top_tags_by_project_type %}
+        <tr><td>{{ row.project_type }}</td><td>{{ row.rank }}</td><td>{{ row.tag }}</td><td>{{ row.usage_count }}</td></tr>
+        {% else %}
+        <tr><td colspan="4" class="empty">No tag usage data found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="grid two-cols">
+  <article class="card">
+    <h3>Total Datasets by Topic</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Topic</th><th>Total Datasets</th></tr></thead>
+        <tbody>
+          {% for row in totals_grouped.topic %}
+          <tr><td>{{ row.group_value }}</td><td>{{ row.total }}</td></tr>
+          {% else %}
+          <tr><td colspan="2" class="empty">No data found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </article>
+
+  <article class="card">
+    <h3>Total Datasets by Format</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Format</th><th>Total Datasets</th></tr></thead>
+        <tbody>
+          {% for row in totals_grouped.format %}
+          <tr><td>{{ row.group_value }}</td><td>{{ row.total }}</td></tr>
+          {% else %}
+          <tr><td colspan="2" class="empty">No data found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </article>
+</section>
+{% endblock %}

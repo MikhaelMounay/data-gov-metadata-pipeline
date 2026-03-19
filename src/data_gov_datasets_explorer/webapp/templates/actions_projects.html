@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+  <h3>Create Project for a User</h3>
+  <p class="section-subtitle">Define a project first, then associate datasets under usage tracking.</p>
+  <form method="post" action="{{ url_for('add_project') }}" class="form-grid">
+    <label>User Email
+      <input type="email" name="app_user_email" required>
+    </label>
+    <label>Project Name
+      <input type="text" name="project_name" required>
+    </label>
+    <label>Project Type
+      <select name="project_category">
+        <option value="">Unassigned</option>
+        {% for category in project_categories %}
+        <option value="{{ category }}">{{ category }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <button type="submit">Create Project</button>
+  </form>
+</section>
+{% endblock %}

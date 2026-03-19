@@ -69,6 +69,35 @@ Export all DB tables to CSV:
 python -m data_gov_datasets_explorer.export_db.export_db_csv
 ```
 
+Run the client web app:
+
+```bash
+python -m data_gov_datasets_explorer.webapp.app
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8000
+```
+
+The client app supports:
+- Registering an application user.
+- Creating a project for a user.
+- Adding dataset usage entries for an existing user project.
+- Selecting datasets for usage through a searchable picker backed by the full dataset catalog.
+- Viewing user usage history.
+- Querying datasets by organization type, format, and tag.
+- Viewing top organizations and top datasets by user usage.
+- Viewing grouped totals by organization, topic, format, and organization type.
+- Viewing usage distribution by project type.
+- Viewing top 10 tags by project type.
+
+Navigation is split by purpose:
+- Actions: register users and add usage records.
+- Discovery: user usage and dataset lookups.
+- Analytics: organization, project, and tag/topic reports.
+
 ## Logs
 The project writes structured logs to console and file. Typical files include:
 - `crawler.log`

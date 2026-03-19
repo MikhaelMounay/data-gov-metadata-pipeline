@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+  <h3>View Existing Usage for a User</h3>
+  <form method="get" action="{{ url_for('user_explorer') }}" class="inline-filter">
+    <input type="email" name="usage_email" value="{{ filters.usage_email }}" placeholder="user@email.com">
+    <button type="submit">Load Usage</button>
+  </form>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>User</th><th>Project</th><th>Project Type</th><th>Dataset</th></tr>
+      </thead>
+      <tbody>
+        {% for row in user_usage %}
+        <tr>
+          <td>{{ row.app_user_email }}</td>
+          <td>{{ row.project_name }}</td>
+          <td>{{ row.project_category }}</td>
+          <td>{{ row.dataset_name }} ({{ row.dataset_id }})</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4" class="empty">No usage records for this filter.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

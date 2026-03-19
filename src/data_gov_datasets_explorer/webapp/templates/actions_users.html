@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+  <h3>Create New Application User</h3>
+  <p class="section-subtitle">Register new users before associating projects and dataset usage.</p>
+  <form method="post" action="{{ url_for('register_user') }}" class="form-grid">
+    <label>Email
+      <input type="email" name="email" required>
+    </label>
+    <label>Username
+      <input type="text" name="username">
+    </label>
+    <label>Gender
+      <input type="text" name="gender">
+    </label>
+    <label>Birthdate
+      <input type="date" name="birthdate">
+    </label>
+    <label>Country
+      <input type="text" name="country">
+    </label>
+    <button type="submit">Create User</button>
+  </form>
+</section>
+{% endblock %}

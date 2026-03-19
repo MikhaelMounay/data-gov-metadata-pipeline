@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="grid four-cols">
+  <article class="card kpi-card"><p>Datasets</p><h3>{{ kpis.datasets }}</h3></article>
+  <article class="card kpi-card"><p>Organizations</p><h3>{{ kpis.organizations }}</h3></article>
+  <article class="card kpi-card"><p>Topics</p><h3>{{ kpis.topics }}</h3></article>
+  <article class="card kpi-card"><p>Formats</p><h3>{{ kpis.formats }}</h3></article>
+</section>
+
+<section class="grid two-cols">
+  <article class="card">
+    <h3>Top 5 Contributing Organizations</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Organization</th><th>Type</th><th>Datasets</th></tr></thead>
+        <tbody>
+          {% for row in top_organizations %}
+          <tr><td>{{ row.organization }}</td><td>{{ row.organization_type or 'unknown' }}</td><td>{{ row.dataset_count }}</td></tr>
+          {% else %}
+          <tr><td colspan="3" class="empty">No records found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </article>
+
+  <article class="card">
+    <h3>Top 5 Datasets by Users</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dataset</th><th>Users</th></tr></thead>
+        <tbody>
+          {% for row in top_datasets_by_users %}
+          <tr><td>{{ row.dataset_name }} ({{ row.dataset_id }})</td><td>{{ row.user_count }}</td></tr>
+          {% else %}
+          <tr><td colspan="2" class="empty">No usage data found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </article>
+</section>
+
+<section class="card">
+  <h3>Usage Distribution by Project Type</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Project Type</th><th>Dataset Usage Count</th></tr></thead>
+      <tbody>
+        {% for row in usage_distribution %}
+        <tr><td>{{ row.project_type }}</td><td>{{ row.usage_count }}</td></tr>
+        {% else %}
+        <tr><td colspan="2" class="empty">No distribution data found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

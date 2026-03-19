@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="grid two-cols">
+  <article class="card">
+    <h3>Datasets by Organization Type</h3>
+    <form method="get" action="{{ url_for('dataset_explorer') }}" class="inline-filter">
+      <input type="text" name="org_type" value="{{ filters.org_type }}" placeholder="federal, state, city...">
+      <button type="submit">Search</button>
+    </form>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dataset</th><th>Organization</th><th>Type</th></tr></thead>
+        <tbody>
+          {% for row in datasets_by_org_type %}
+          <tr><td>{{ row.dataset_name }} ({{ row.dataset_id }})</td><td>{{ row.organization }}</td><td>{{ row.organization_type }}</td></tr>
+          {% else %}
+          <tr><td colspan="3" class="empty">No datasets for this organization type.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </article>
+
+  <article class="card">
+    <h3>Datasets by Format</h3>
+    <form method="get" action="{{ url_for('dataset_explorer') }}" class="inline-filter">
+      <input type="text" name="dataset_format" value="{{ filters.dataset_format }}" placeholder="csv, json, xml...">
+      <button type="submit">Search</button>
+    </form>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dataset</th><th>Format</th><th>Organization</th></tr></thead>
+        <tbody>
+          {% for row in datasets_by_format %}
+          <tr><td>{{ row.dataset_name }} ({{ row.dataset_id }})</td><td>{{ row.format or 'unknown' }}</td><td>{{ row.organization or 'unknown' }}</td></tr>
+          {% else %}
+          <tr><td colspan="3" class="empty">No datasets for this format.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </article>
+</section>
+
+<section class="card">
+  <h3>Datasets by Tag</h3>
+  <form method="get" action="{{ url_for('dataset_explorer') }}" class="inline-filter">
+    <input type="text" name="dataset_tag" value="{{ filters.dataset_tag }}" placeholder="water, climate, census...">
+    <button type="submit">Search</button>
+  </form>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Dataset</th><th>Tag</th><th>Organization</th></tr></thead>
+      <tbody>
+        {% for row in datasets_by_tag %}
+        <tr><td>{{ row.dataset_name }} ({{ row.dataset_id }})</td><td>{{ row.tag }}</td><td>{{ row.organization or 'unknown' }}</td></tr>
+        {% else %}
+        <tr><td colspan="3" class="empty">No datasets for this tag.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

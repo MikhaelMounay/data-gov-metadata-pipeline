@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="grid two-cols">
+  <article class="card">
+    <h3>Top 5 Datasets by User Count</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dataset</th><th>Users</th></tr></thead>
+        <tbody>
+          {% for row in top_datasets_by_users %}
+          <tr><td>{{ row.dataset_name }} ({{ row.dataset_id }})</td><td>{{ row.user_count }}</td></tr>
+          {% else %}
+          <tr><td colspan="2" class="empty">No usage data found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </article>
+
+  <article class="card">
+    <h3>Usage Distribution by Project Type</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Project Type</th><th>Dataset Usage Count</th></tr></thead>
+        <tbody>
+          {% for row in usage_distribution %}
+          <tr><td>{{ row.project_type }}</td><td>{{ row.usage_count }}</td></tr>
+          {% else %}
+          <tr><td colspan="2" class="empty">No distribution data found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </article>
+</section>
+{% endblock %}
