@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, sessionmaker
 
-from src.models import Base
+from data_gov_datasets_explorer.models import Base
 
 
 def build_database_url() -> str:

@@ -1,5 +1,5 @@
 [project]
-name = "data-gov-crawler"
+name = "data-gov-datasets-explorer"
 version = "0.1.0"
 description = ""
 authors = [

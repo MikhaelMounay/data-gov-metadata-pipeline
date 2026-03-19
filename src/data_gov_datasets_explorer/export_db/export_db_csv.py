@@ -7,7 +7,7 @@ from pathlib import Path
 
 from sqlalchemy import MetaData, Table, select
 
-from src.db import engine
+from data_gov_datasets_explorer.db import engine
 
 
 def serialize_value(value) -> str:

@@ -6,9 +6,9 @@ from datetime import datetime
 from sqlalchemy import inspect
 from sqlalchemy.dialects.mysql import insert as mysql_insert
 
-from src.db import SessionLocal, get_session
-from src.crawler.crawler_builders import build_dataset, build_publisher, build_tags, build_topics, build_resources
-from src.models import _IngestionItem, _IngestionRun
+from data_gov_datasets_explorer.db import SessionLocal, get_session
+from data_gov_datasets_explorer.crawler.crawler_builders import build_dataset, build_publisher, build_tags, build_topics, build_resources
+from data_gov_datasets_explorer.models import _IngestionItem, _IngestionRun
 
 
 DATASETS_URL = "https://catalog.data.gov/api/3/action/package_search"

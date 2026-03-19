@@ -4,7 +4,7 @@ from datetime import datetime
 import hashlib
 import unicodedata
 
-from src.models import AccessLevelEnum, Dataset, DatasetTag, DatasetTopic, Publisher, Resource
+from data_gov_datasets_explorer.models import AccessLevelEnum, Dataset, DatasetTag, DatasetTopic, Publisher, Resource
 
 
 _ALLOWED_CONTROL_CHARS = {"\t", "\n", "\r"}
