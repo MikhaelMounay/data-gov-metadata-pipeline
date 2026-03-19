@@ -1,4 +1,4 @@
-# Data.gov Datasets Explorer
+# Data.gov Metadata Pipeline & Datasets Explorer
 
 A Python data pipeline that crawls Data.gov dataset metadata, normalizes it into a relational model, and persists it to MySQL for analysis and downstream applications.
 
