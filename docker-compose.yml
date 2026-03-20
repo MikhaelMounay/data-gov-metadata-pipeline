@@ -1,0 +1,47 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: data-gov-webapp
+    env_file:
+      - .env
+    environment:
+      ENVIRONMENT: production
+      DATABASE_URL: ${DATABASE_URL}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      
+      WEBAPP_PORT: 8000
+      FLASK_SECRET_KEY: ${FLASK_SECRET_KEY}
+    ports:
+      - "8000:8000"
+    # depends_on:
+    #   db:
+    #     condition: service_healthy
+    restart: unless-stopped
+
+#   db:
+#     image: mysql:8.4
+#     container_name: data-gov-mysql
+#     environment:
+#       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
+#       MYSQL_DATABASE: ${DB_NAME:-datagov_datasets}
+#     ports:
+#       - "3306:3306"
+#     volumes:
+#       - mysql_data:/var/lib/mysql
+#       - ./migrations/datagov_datasets-creation_sql.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+#     healthcheck:
+#       test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${DB_PASSWORD:-root}"]
+#       interval: 10s
+#       timeout: 5s
+#       retries: 10
+#       start_period: 20s
+#     restart: unless-stopped
+
+# volumes:
+#   mysql_data:
