@@ -8,6 +8,8 @@ A Python data pipeline that crawls Data.gov dataset metadata, normalizes it into
 - Uses idempotent upserts to safely re-run ingestion without duplicating primary keys.
 - Seeds application users from a CSV file.
 - Exports database tables to CSV for reporting and offline analysis.
+- Provides a multi-page web client for data operations, discovery, and analytics.
+- Supports portable runtime with Docker and Docker Compose.
 
 ## Tech Stack
 - Python 3.11+
@@ -36,6 +38,18 @@ src/data_gov_datasets_explorer/
 Create and adjust your `.env` using `.env.example` values:
 
 `DATABASE_URL` takes precedence if set.
+
+Run with Docker (portable setup):
+
+```bash
+docker compose up --build
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8000
+```
 
 ## Installation
 ```bash

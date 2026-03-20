@@ -8,6 +8,8 @@ A Python data pipeline that crawls Data.gov dataset metadata, normalizes it into
 - Uses idempotent upserts to safely re-run ingestion without duplicating primary keys.
 - Seeds application users from a CSV file.
 - Exports database tables to CSV for reporting and offline analysis.
+- Provides a multi-page web client for data operations, discovery, and analytics.
+- Supports portable runtime with Docker and Docker Compose.
 
 ## Tech Stack
 - Python 3.11+
@@ -36,6 +38,18 @@ src/data_gov_datasets_explorer/
 Create and adjust your `.env` using `.env.example` values:
 
 `DATABASE_URL` takes precedence if set.
+
+Run with Docker (portable setup):
+
+```bash
+docker compose up --build
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8000
+```
 
 ## Installation
 ```bash
@@ -68,6 +82,35 @@ Export all DB tables to CSV:
 ```bash
 python -m data_gov_datasets_explorer.export_db.export_db_csv
 ```
+
+Run the client web app:
+
+```bash
+python -m data_gov_datasets_explorer.webapp.app
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8000
+```
+
+The client app supports:
+- Registering an application user.
+- Creating a project for a user.
+- Adding dataset usage entries for an existing user project.
+- Selecting datasets for usage through a searchable picker backed by the full dataset catalog.
+- Viewing user usage history.
+- Querying datasets by organization type, format, and tag.
+- Viewing top organizations and top datasets by user usage.
+- Viewing grouped totals by organization, topic, format, and organization type.
+- Viewing usage distribution by project type.
+- Viewing top 10 tags by project type.
+
+Navigation is split by purpose:
+- Actions: register users and add usage records.
+- Discovery: user usage and dataset lookups.
+- Analytics: organization, project, and tag/topic reports.
 
 ## Logs
 The project writes structured logs to console and file. Typical files include:
