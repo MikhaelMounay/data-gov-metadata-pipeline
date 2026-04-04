@@ -6,6 +6,8 @@ import logging
 from data_gov_datasets_explorer.webapp import __main__ as webapp
 
 
+app = webapp.app
+
 if __name__ == "__main__":
     dotenv.load_dotenv()  # Load environment variables from .env file
 
