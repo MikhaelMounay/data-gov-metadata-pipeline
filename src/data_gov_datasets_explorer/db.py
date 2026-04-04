@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import dotenv
 from contextlib import contextmanager
 from collections.abc import Iterator
 
@@ -12,6 +13,8 @@ from data_gov_datasets_explorer.models import Base
 
 
 def build_database_url() -> str:
+	dotenv.load_dotenv()  # Load environment variables from .env file
+
 	configured_url = os.getenv("DATABASE_URL")
 	if configured_url:
 		return configured_url

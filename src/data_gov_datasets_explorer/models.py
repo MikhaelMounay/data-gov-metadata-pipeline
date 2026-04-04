@@ -1,7 +1,7 @@
 from __future__ import annotations
 from datetime import date, datetime
 from enum import Enum
-from sqlalchemy import Date, DateTime, Enum as SAEnum, ForeignKey, ForeignKeyConstraint, Integer, LargeBinary, String, Text
+from sqlalchemy import BINARY, Date, DateTime, Enum as SAEnum, ForeignKey, ForeignKeyConstraint, Integer, String, Text
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 class Base(DeclarativeBase):
@@ -103,7 +103,7 @@ class Resource(Base):
 		ForeignKey("Dataset.Id"),
 		primary_key=True,
 	)
-	url_hash: Mapped[bytes] = mapped_column("URLHash", LargeBinary(32), primary_key=True)
+	url_hash: Mapped[bytes] = mapped_column("URLHash", BINARY(32), primary_key=True)
 	url: Mapped[str] = mapped_column("URL", String(2048), nullable=False)
 	name: Mapped[str | None] = mapped_column("Name", String(1024))
 	format: Mapped[str | None] = mapped_column("Format", String(100))
